@@ -1,0 +1,16 @@
+#!/bin/bash
+b=`head -1 /sys/class/backlight/intel_backlight/brightness`
+min=0
+max=`head -1 /sys/class/backlight/intel_backlight/max_brightness`
+step=$(expr $max / 20)
+
+if [ $b -gt $(expr $min + $step) ]
+then
+	nb=`expr $b - $step`
+else
+	nb=0
+fi
+echo $nb | sudo tee /sys/class/backlight/intel_backlight/brightness
+percentage=`expr $nb \* 100 / $max`
+xuser=$(who | grep ":0" | awk '{print $1}' | tail -n1)
+su "$xuser" -c "DISPLAY=:0 notify-send ' '  -i 'notification-display-brightness-medium' -h int:value:$percentage -h string:synchronous:volume"

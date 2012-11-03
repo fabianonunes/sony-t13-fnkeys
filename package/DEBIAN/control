@@ -1,0 +1,7 @@
+Package: sony-t13-packages
+Version: 0.1
+Section: publishing
+Priority: extra
+Architecture: all
+Maintainer: Fabiano Nunes
+Description: extra fn keys for sony vaio t13 (brightness and touchpad buttons)

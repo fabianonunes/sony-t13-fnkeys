@@ -1,0 +1,11 @@
+#!/bin/bash
+xuser=$(who | grep ":0" | awk '{print $1}' | tail -n1)
+MOUSESTATE=$(DISPLAY=:0 XAUTHORITY=/home/$xuser/.Xauthority synclient | grep TouchpadOff | grep -Eo .\$)
+if [ $MOUSESTATE -gt 0 ]
+then
+	MOUSESTATE=0
+else
+	MOUSESTATE=1
+fi
+DISPLAY=:0 XAUTHORITY=/home/$xuser/.Xauthority synclient TouchpadOff=$MOUSESTATE
+
